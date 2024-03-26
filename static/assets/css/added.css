@@ -1,0 +1,14 @@
+.article_img_top{
+    width: 450px;
+    height: 430px;
+}
+
+.article_img_bottom{
+    width: 700px;
+    height: 400px;
+}
+
+#comment_profile_image{
+    width: 20px;
+    height: 10px;
+}
