@@ -38,7 +38,7 @@
                                         <h4>{{ post.title }}</h4>
 
 
-                                        {% if request.user in post.BookMarks.all or request.user.post.id %}
+                                        {% if request.user in post.BookMarks.all or post.id in request.session.saved %}
                                             <a href="{% url 'post:bookmark_func' post.slug %}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor" class="bi bi-bookmark-fill"

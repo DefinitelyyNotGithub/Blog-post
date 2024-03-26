@@ -86,24 +86,27 @@ def LikePost(request, pk):
 
 
 def BookMarkPost(request, pk):
-    user = request.user
     post = Post.objects.get(slug=pk)
-    session = request.session
+    user = request.user
 
-    if user in post.BookMarks.all():
-        if user.is_authenticated:
+    if not user.is_authenticated:
+        if 'saved' in request.session:
+            print(request.session['saved'])
+            if post.id in request.session['saved']:
+                request.session['saved'].remove(post.id)
+                request.session.save()
+            else:
+                request.session['saved'].append(post.id)
+                request.session.save()
+        else:
+            request.session['saved'] = []
+            request.session['saved'].append(post.id)
+            request.session.save()
+
+    else:
+        if user in post.BookMarks.all():
             post.BookMarks.remove(user)
         else:
-            del session[int(post.id)]
-            print('deleted')
-    else:
-        if user.is_authenticated:
             post.BookMarks.add(user)
-        else:
-            request.session[str(post.id)] = str(post.slug)
-            print('added')
 
     return redirect('post:post_details', pk)
-
-
-
