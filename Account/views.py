@@ -4,6 +4,7 @@ from django.views import View
 from .models import User
 from .forms import LogInForm, RegisterForm
 from django.urls import reverse
+from utils.bookmark_add_to_account import add_bookmarks_to_account
 
 
 class LogIn_View(View):
@@ -25,6 +26,7 @@ class LogIn_View(View):
                                 password=form.cleaned_data['password'])
             if user is not None:
                 login(request, user)
+                add_bookmarks_to_account(request)
                 if second_url:
                     return redirect(second_url)
                 else:
@@ -57,6 +59,7 @@ class Register_View(View):
             user = User.objects.create_user(email=form.cleaned_data.get("username"),
                                      password=form.cleaned_data.get("password"))
             login(request, user)
+            add_bookmarks_to_account(request)
             if second_url:
                 return redirect(second_url)
             else:
