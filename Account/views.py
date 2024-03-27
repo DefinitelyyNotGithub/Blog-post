@@ -1,9 +1,12 @@
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import UpdateView, ListView
+
+from Blog_Post.models import Post
 from .models import User
 from .forms import LogInForm, RegisterForm
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from utils.bookmark_add_to_account import add_bookmarks_to_account
 
 
@@ -68,3 +71,36 @@ class Register_View(View):
         else:
             RegisterForm()
         return render(request, 'Account/register.html', {"form": form})
+
+
+class UserProfile(UpdateView):
+
+    template_name = 'Account/profile.html'
+    model = User
+    fields = ('full_name', 'email')
+    success_url = reverse_lazy('Main:main')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfile, self).get_context_data(**kwargs)
+        context['request'] = self.request
+        return context
+
+class SavedPost(ListView):
+    template_name = 'Blog_Post/posts.html'
+    model = Post
+    context_object_name = 'post'
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.bookmarked.all()
+
+class LikedPost(ListView):
+    template_name = 'Blog_Post/posts.html'
+    model = Post
+    context_object_name = 'post'
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.likes.all()

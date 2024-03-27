@@ -13,7 +13,7 @@ class postListView(ListView):
     template_name = 'Blog_Post/posts.html'
     model = Post
     context_object_name = 'post'
-    paginate_by = 1
+    paginate_by = 14
 
     def get_queryset(self):
         return Post.objects.filter(visibility=True)

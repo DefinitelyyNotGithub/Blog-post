@@ -42,8 +42,8 @@
                             <a class="nav-link" href="{% url 'Account:logout' %}">Logout</a>
                         </li>
 
-                        <li class="nav-item{% if request.resolver_match.url_name == '' %} active{% endif %}">
-                            <a class="nav-link" href="">My Profile</a>
+                        <li class="nav-item{% if request.resolver_match.url_name == 'profile' %} active{% endif %}">
+                            <a class="nav-link" href="{% url 'Account:profile' request.user.id %}">My Profile</a>
                         </li>
                     {% else %}
                         <li class="nav-item{% if request.resolver_match.url_name == 'login' %} active{% endif %}">

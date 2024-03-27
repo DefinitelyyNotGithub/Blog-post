@@ -73,6 +73,7 @@ TEMPLATES = [
                 'utils.context_processors.cat',
                 'utils.context_processors.general_info',
                 'utils.context_processors.popular_tags',
+                'utils.context_processors.request',
 
 
             ],

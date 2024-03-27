@@ -19,3 +19,6 @@ def popular_tags(request):
     obj = Post.tags.most_common()[:8]
     return {'popular_tags': obj}
 
+def request(request):
+    return {'request': request}
+
