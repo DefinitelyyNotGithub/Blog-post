@@ -91,7 +91,6 @@ def BookMarkPost(request, pk):
 
     if not user.is_authenticated:
         if 'saved' in request.session:
-            print(request.session['saved'])
             if post.id in request.session['saved']:
                 request.session['saved'].remove(post.id)
                 request.session.save()

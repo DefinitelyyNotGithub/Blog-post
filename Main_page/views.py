@@ -12,9 +12,6 @@ class Main_View(ListView):
     model = Post
 
     def get_context_data(self, *args, **kwargs):
-        print('hih')
-        if 'saved' in self.request.session:
-            print(self.request.session['saved'])
 
         context_deta = super(Main_View, self).get_context_data(*args, **kwargs)
         context_deta['article'] = Post.objects.filter(visibility=True)
