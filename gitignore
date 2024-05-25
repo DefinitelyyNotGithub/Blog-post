@@ -5,6 +5,7 @@
 __pycache__
 db.sqlite3
 media
+media/
 
 # Backup files # 
 *.bak 
@@ -24,6 +25,8 @@ media
 .idea/**/contentModel.xml
 
 # Sensitive or high-churn files
+idea/
+idea
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
